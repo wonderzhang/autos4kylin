@@ -1,0 +1,76 @@
+<Schema name="iqj_user">
+  <Cube name="iqj_user" visible="true" cache="true" enabled="true">
+    <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="统计分区">
+      <Hierarchy name="统计分区" visible="true" hasAll="true">
+        <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="分区" visible="true" column="ETL_TX_DT" nameColumn="ETL_TX_DT" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="SEX" highCardinality="false" name="性别">
+      <Hierarchy name="性别" visible="true" hasAll="true" primaryKey="DICT_KEY">
+        <Table name="DIM_COMMON_DICT" schema="KYLIN">
+        </Table>
+        <Level name="性别" visible="true" column="DICT_KEY" nameColumn="DICT_VAULE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="DICT_VAULE">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="是否论坛注册">
+      <Hierarchy name="是否论坛注册" visible="true" hasAll="true">
+        <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="论坛注册" visible="true" column="BBS_REGIST_FLAG" nameColumn="BBS_REGIST_FLAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="是否微信绑定">
+      <Hierarchy name="是否微信绑定" visible="true" hasAll="true">
+        <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="微信绑定" visible="true" column="WECHAT_BIND_FLAG" nameColumn="WECHAT_BIND_FLAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CHANNEL_ID" highCardinality="false" name="注册渠道">
+      <Hierarchy name="注册渠道层级" visible="true" hasAll="true" primaryKey="CHANNEL_ID">
+        <Table name="DIM_IQJ_FDA_CHANNEL" schema="KYLIN">
+        </Table>
+        <Level name="渠道大类" visible="true" table="DIM_IQJ_FDA_CHANNEL" column="CHANNEL_PLANTFORM_ID" nameColumn="CHANNEL_PLANTFORM_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="CHANNEL_PLANTFORM_NAME">
+        </Level>
+        <Level name="渠道" visible="true" table="DIM_IQJ_FDA_CHANNEL" column="CHANNEL_ID" nameColumn="CHANNEL_NAME" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" captionColumn="CHANNEL_NAME">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUST_ASSETS_TAG" highCardinality="false" name="上月在持金额">
+      <Hierarchy name="上月在持金额层级" visible="true" hasAll="true" primaryKey="ASSETS_TAG">
+        <Table name="DIM_IQJ_FDA_USER_ASSETS_TAG" schema="KYLIN">
+        </Table>
+        <Level name="一级标签" visible="true" table="DIM_IQJ_FDA_USER_ASSETS_TAG" column="PARENT_ASSETS_TAG_NAME" nameColumn="PARENT_ASSETS_TAG_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PARENT_ASSETS_TAG_NAME">
+        </Level>
+        <Level name="标签" visible="true" table="DIM_IQJ_FDA_USER_ASSETS_TAG" column="ASSETS_TAG" nameColumn="ASSETS_TAG" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" captionColumn="ASSETS_TAG">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="LIVE_CITY" highCardinality="false" name="区域">
+      <Hierarchy name="区域层级" visible="true" hasAll="true" primaryKey="CITY_ID">
+        <Table name="DIM_IQJ_FDA_USER_AREA" schema="KYLIN">
+        </Table>
+        <Level name="省份" visible="true" table="DIM_IQJ_FDA_USER_AREA" column="PROVE" nameColumn="PROVE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PROVE">
+        </Level>
+        <Level name="城市" visible="true" table="DIM_IQJ_FDA_USER_AREA" column="CITY_ID" nameColumn="CITY" type="String" internalType="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" captionColumn="CITY">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="注册人数" column="LIVE_CITY" aggregator="count" visible="true">
+    </Measure>
+    <Measure name="总在持金额" column="CURR_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="最大在持金额" column="CURR_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="max" visible="true">
+    </Measure>
+    <Measure name="在持人数" column="CURR_CUST_ASSETS_TAG" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>

@@ -1,0 +1,32 @@
+##主要为olap 自动化脚本
+分为kylin和saiku
+
+common
+加密方法
+encodeself
+
+
+kylin
+##包含用到的kylin_api
+kylin_api
+##增量,全量,刷新构建cube 会调用kylin_api
+inc_build_new_v9
+##获得cube/model/hbase的关系 会调用kylin_api
+get_cube_hbase_relation_v2/get_disable_clean_obj.py
+##获得x天不用的cube或model 并删除 之后回写相应的数据库 调用kylin_api
+get_cube_sql_relation
+获得cube与table的关系
+py_sqlparse
+解析sql语法树
+
+saiku
+##获取saiku用户列表 为每个用户自动创建个人文件夹 用到了selenium模拟登陆 需要用到管理员账号及密码  之后需要赋权owner(手动)
+auto_create_private_folder
+##自动给用户赋权限
+auto_grant_privilege
+##定时自动刷新
+saiku_refresh
+
+##解析xml到数据库
+xml2db
+

@@ -1,0 +1,637 @@
+<Schema name="爱钱进olap" description="爱钱进olap测试" measuresCaption="测试">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="日期维度">
+    <Hierarchy name="时间层级" visible="true" hasAll="true" primaryKey="DATE_ID">
+      <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+      </Table>
+      <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="季度" visible="true" table="DIM_TIME_NEW" column="Q" nameColumn="Q" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="月份" visible="true" table="DIM_TIME_NEW" column="M" nameColumn="M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="时间层级(周)" visible="true" hasAll="true" primaryKey="DATE_ID">
+      <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+      </Table>
+      <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="Y" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="周" visible="true" table="DIM_TIME_NEW" column="W_INT" nameColumn="W" ordinalColumn="W_INT" type="Integer" internalType="int" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="W_NAME">
+      </Level>
+      <Level name="日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="理财产品">
+    <Hierarchy name="理财产品" visible="true" hasAll="true" primaryKey="PRODUCT_ID">
+      <Table name="FDA_PRO_PRODUCT_CODE_MAPPING" schema="IQJ_FDA">
+      </Table>
+      <Level name="理财产品" visible="true" table="FDA_PRO_PRODUCT_CODE_MAPPING" column="PRODUCT_ID" nameColumn="PRODUCT_NAME" ordinalColumn="PRODUCT_ID" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="用户属性">
+    <Hierarchy name="在持标签" visible="true" hasAll="true" allLevelName="All层级-上月底在持标签" primaryKey="CUST_ID">
+      <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+      </Table>
+      <Level name="一级在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="PARENT_ASSETS_TAG" nameColumn="PARENT_ASSETS_TAG_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PARENT_ASSETS_TAG_NAME">
+      </Level>
+      <Level name="在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="CUST_ASSETS_TAG" nameColumn="CUST_ASSETS_TAG" ordinalColumn="ORDER_TAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="年龄" visible="true" hasAll="true" allLevelName="All层级-年龄" primaryKey="CUST_ID" caption="年龄所有">
+      <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+      </Table>
+      <Level name="年龄" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="BIRTH_YEAR" nameColumn="AGE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="注册日期" visible="true" hasAll="true" allLevelName="All层级-注册日期" primaryKey="CUST_ID">
+      <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+      </Table>
+      <Level name="注册年份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_YW" nameColumn="REGIST_YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="注册月份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_M" nameColumn="REGIST_M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="首次投资日期" visible="true" hasAll="true" allLevelName="All层级-首次投资日期" primaryKey="CUST_ID">
+      <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+      </Table>
+      <Level name="首次投资年份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="FIRST_INVEST_YW" nameColumn="FIRST_INVEST_YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="FIRST_INVEST_YW">
+      </Level>
+      <Level name="首次投资月份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="FIRST_INVEST_M" nameColumn="FIRST_INVEST_M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="FIRST_INVEST_M">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="用户主题" caption="用户主题" visible="true" cache="false" enabled="true">
+    <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="(必要)统计分区" description="该维度为必选维度">
+      <Hierarchy name="统计分区" visible="true" hasAll="true">
+        <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="分区" visible="true" column="ETL_TX_DT" nameColumn="ETL_TX_DT" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="REGIST_DATE" highCardinality="false" name="1注册时间">
+      <Hierarchy name="注册时间层级" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="季度" visible="true" table="DIM_TIME_NEW" column="Q" nameColumn="Q" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="月份" visible="true" table="DIM_TIME_NEW" column="M" nameColumn="M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="注册日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="FIRST_INVEST_DATE" highCardinality="false" name="1首次投资时间">
+      <Hierarchy name="首次投资时间层级" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW" alias="DIM_TIME_NEW2">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW2" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="季度" visible="true" table="DIM_TIME_NEW2" column="Q" nameColumn="Q" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="月份" visible="true" table="DIM_TIME_NEW2" column="M" nameColumn="M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="首次投资日" visible="true" table="DIM_TIME_NEW2" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CHANNEL_ID" highCardinality="false" name="2注册渠道">
+      <Hierarchy name="注册渠道层级" visible="true" hasAll="true" primaryKey="CHANNEL_ID">
+        <Table name="DIM_IQJ_FDA_CHANNEL" schema="KYLIN">
+        </Table>
+        <Level name="渠道大类" visible="true" table="DIM_IQJ_FDA_CHANNEL" column="CHANNEL_PLANTFORM_ID" nameColumn="CHANNEL_PLANTFORM_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="CHANNEL_PLANTFORM_NAME">
+        </Level>
+        <Level name="渠道" visible="true" table="DIM_IQJ_FDA_CHANNEL" column="CHANNEL_ID" nameColumn="CHANNEL_NAME" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" captionColumn="CHANNEL_NAME">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUST_ASSETS_TAG" highCardinality="false" name="3上月在持金额">
+      <Hierarchy name="上月在持金额层级" visible="true" hasAll="true" primaryKey="ASSETS_TAG">
+        <Table name="DIM_IQJ_FDA_USER_ASSETS_TAG" schema="KYLIN">
+        </Table>
+        <Level name="一级标签" visible="true" table="DIM_IQJ_FDA_USER_ASSETS_TAG" column="PARENT_ASSETS_TAG" nameColumn="PARENT_ASSETS_TAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PARENT_ASSETS_TAG_NAME">
+        </Level>
+        <Level name="标签" visible="true" table="DIM_IQJ_FDA_USER_ASSETS_TAG" column="ASSETS_TAG" nameColumn="ASSETS_TAG" ordinalColumn="ORDER_TAG" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" captionColumn="ASSETS_TAG">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="LIVE_CITY" highCardinality="false" name="4区域">
+      <Hierarchy name="区域层级" visible="true" hasAll="true" primaryKey="CITY_ID">
+        <Table name="DIM_IQJ_FDA_USER_AREA" schema="KYLIN">
+        </Table>
+        <Level name="省份" visible="true" table="DIM_IQJ_FDA_USER_AREA" column="PROVE" nameColumn="PROVE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PROVE">
+        </Level>
+        <Level name="城市" visible="true" table="DIM_IQJ_FDA_USER_AREA" column="CITY_ID" nameColumn="CITY" type="String" internalType="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" captionColumn="CITY">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="BIRTH_YEAR" highCardinality="false" name="5年龄区间">
+      <Hierarchy name="年龄标签" visible="true" hasAll="true" primaryKey="AGE_CODE">
+        <Table name="DW_DIM_USER_AGE" schema="IQJ_DW">
+        </Table>
+        <Level name="年龄区间" visible="true" table="DW_DIM_USER_AGE" column="AGE_CODE" nameColumn="AGE_NAME" ordinalColumn="AGE_CODE" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" captionColumn="AGE_NAME">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="SEX" highCardinality="false" name="6性别">
+      <Hierarchy name="性别" visible="true" hasAll="true" primaryKey="DICT_KEY">
+        <Table name="DIM_COMMON_DICT" schema="KYLIN">
+        </Table>
+        <Level name="性别" visible="true" column="DICT_KEY" nameColumn="DICT_VAULE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="DICT_VAULE">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="7是否论坛注册">
+      <Hierarchy name="是否论坛注册" visible="true" hasAll="true">
+        <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="论坛注册" visible="true" column="BBS_REGIST_FLAG" nameColumn="BBS_REGIST_FLAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="8是否当日申请债转">
+      <Hierarchy name="是否申请债转" visible="true" hasAll="true">
+        <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="是否申请债转" visible="true" column="CUR_APPLY_EXIT_FLAG" nameColumn="CUR_APPLY_EXIT_FLAG_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="CUR_APPLY_EXIT_FLAG_NAME">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="9是否当日登陆">
+      <Hierarchy name="是否登陆" visible="true" hasAll="true">
+        <Table name="F_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="是否登陆" visible="true" column="LOGIN_FLAG" nameColumn="LOGIN_FLAG_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="LOGIN_FLAG_NAME">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="注册用户数" column="LIVE_CITY" aggregator="count" caption="注册用户数" description="历史累计注册用户数" visible="true">
+    </Measure>
+    <Measure name="认证用户数" column="ID_VERIFIED_FLAG" aggregator="sum" description="历史累计认证用户数" visible="true">
+    </Measure>
+    <Measure name="在持用户数" column="CURR_CUST_ASSETS_TAG" aggregator="sum" description="当前总共在持用户数" visible="true">
+    </Measure>
+    <Measure name="在持金额" column="CURR_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" description="当前总共在持金额" visible="true">
+    </Measure>
+    <Measure name="最大在持金额" column="CURR_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="max" description="当前最大在持金额" visible="true">
+    </Measure>
+    <Measure name="当日退出资产  " column="CURR_DAY_EXIT_AMT" datatype="Numeric" formatString="#,###.00" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日转投用户数" column="CURR_DAY_TRANS_INVEST_USER_NUM" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日转投笔数" column="CURR_DAY_TRANS_INVEST_CNT" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日转投金额" column="CURR_DAY_TRANS_INVEST_AMOUNT" datatype="Numeric" formatString="#,###.00" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日直投用户数" column="CURR_DAY_ZHI_INVEST_USER_NUM" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日直投笔数" column="CURR_DAY_ZHI_INVEST_CNT" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日直投金额" column="CURR_DAY_ZHI_INVEST_AMOUNT" datatype="Numeric" formatString="#,###.00" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日续期用户数" column="CURR_DAY_CONTINUE_USER_NUM" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日续期笔数" column="CURR_DAY_CONTINUE_CNT" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日续期金额 " column="CURR_DAY_CONTINUE_AMOUNT" datatype="Numeric" formatString="#,###.00" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日债转等待中资产" column="WAITING_EXIT_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" description="当日债转等待中资产(整存宝7天宝)" visible="true">
+    </Measure>
+    <Measure name="当日可赎回资产" column="CAN_EXIT_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" description="当日可赎回资产(整存宝7天宝)" visible="true">
+    </Measure>
+    <Measure name="当日申请债转资产" column="CURR_DAY_APPLY_EXIT_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" description="当日申请债转资产(整存宝7天宝)" visible="true">
+    </Measure>
+    <Measure name="当日爱盈宝到期数量" column="CURR_DAY_AYB_MATURED_CNT" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="当日爱盈宝到期资产" column="CURR_DAY_AYB_MATURED_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="累计提现次数" column="ACCUM_WITHDRAW_CNT" aggregator="sum" description="历史累计提现次数" visible="true">
+    </Measure>
+    <Measure name="累计提现资产" column="ACCUM_WITHDRAW_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" description="历史累计提现资产" visible="true">
+    </Measure>
+    <Measure name="累计充值次数" column="ACCUM_RECHARGE_CNT" aggregator="sum" description="历史累计充值次数" visible="true">
+    </Measure>
+    <Measure name="累计充值资产" column="ACCUM_RECHARGE_ASSETS" datatype="Numeric" formatString="#,###.00" aggregator="sum" description="历史累计充值资产" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="投资主题" caption="投资主题" visible="true" cache="true" enabled="true">
+    <Table name="F_IQJ_SCA_INVEST" schema="KYLIN">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="(必要)统计类型">
+      <Hierarchy name="统计类型" visible="true" hasAll="true">
+        <Table name="F_IQJ_SCA_INVEST" schema="KYLIN">
+        </Table>
+        <Level name="投资类型" visible="true" column="STATD_TYPE" nameColumn="STATD_TYPE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="INVEST_DATE" highCardinality="false" name="1投资(预约)时间">
+      <Hierarchy name="投资时间层级" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="季度" visible="true" table="DIM_TIME_NEW" column="Q" nameColumn="Q" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="月份" visible="true" table="DIM_TIME_NEW" column="M" nameColumn="M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="投资日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="投资时间层级(周)" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="周" visible="true" table="DIM_TIME_NEW" column="W" nameColumn="W" ordinalColumn="W_INT" type="Integer" internalType="int" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="W_NAME">
+        </Level>
+        <Level name="投资日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="PRODUCT_ID" highCardinality="false" name="2理财产品">
+      <Hierarchy name="理财产品" visible="true" hasAll="true" primaryKey="PRODUCT_ID">
+        <Table name="FDA_PRO_PRODUCT_CODE_MAPPING" schema="IQJ_FDA">
+        </Table>
+        <Level name="理财产品" visible="true" table="FDA_PRO_PRODUCT_CODE_MAPPING" column="PRODUCT_ID" nameColumn="PRODUCT_NAME" ordinalColumn="PRODUCT_ID" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="INVEST_TYPE" highCardinality="false" name="3投资类型">
+      <Hierarchy name="投资类型" visible="true" hasAll="true" primaryKey="INVEST_TYPE">
+        <Table name="DIM_IQJ_DW_INVEST_TYPE" schema="KYLIN">
+        </Table>
+        <Level name="投资大类" visible="true" table="DIM_IQJ_DW_INVEST_TYPE" column="PARENT_INVEST_TYPE" nameColumn="PARENT_INVEST_TYPE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="类型" visible="true" table="DIM_IQJ_DW_INVEST_TYPE" column="INVEST_TYPE" nameColumn="INVEST_TYPE_NAME" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="4投资期限">
+      <Hierarchy name="投资期限" visible="true" hasAll="true">
+        <Table name="F_IQJ_SCA_INVEST" schema="KYLIN">
+        </Table>
+        <Level name="单位" visible="true" column="PERIOD_CD" nameColumn="PERIOD_CD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="期限" visible="true" column="PRODUCT_PERIOD" nameColumn="PRODUCT_PERIOD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUST_ID" highCardinality="false" name="5用户属性" caption="5用户基础属性">
+
+      <Hierarchy name="年龄" visible="false" hasAll="true" allLevelName="All层级-年龄" primaryKey="CUST_ID" caption="年龄所有">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="年龄" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="BIRTH_YEAR" nameColumn="AGE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="注册日期" visible="true" hasAll="true" allLevelName="All层级-注册日期" primaryKey="CUST_ID">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="注册年份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_YW" nameColumn="REGIST_YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="注册月份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_M" nameColumn="REGIST_M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+
+
+
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUST_ID" highCardinality="false" name="5用户行为属性" caption="5用户行为属性">
+      <Hierarchy name="在持标签" visible="true" hasAll="true" allLevelName="All层级-上月底在持标签" primaryKey="CUST_ID">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="一级在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="PARENT_ASSETS_TAG" nameColumn="PARENT_ASSETS_TAG_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PARENT_ASSETS_TAG_NAME">
+        </Level>
+        <Level name="在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="CUST_ASSETS_TAG" nameColumn="CUST_ASSETS_TAG" ordinalColumn="ORDER_TAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+
+    </Dimension>
+
+
+    <Measure name="投资金额" column="INVEST_AMT" formatString="#,###.00" aggregator="sum" caption="投资金额" visible="true">
+    </Measure>
+    <Measure name="红包金额" column="REDBAG_AMT" formatString="#,###.00" aggregator="sum" caption="红包金额" visible="true">
+    </Measure>
+    <Measure name="预约奖励金额" column="ORDER_REWARD_AMT" formatString="#,###.00" aggregator="sum" caption="预约奖励金额" visible="true">
+    </Measure>
+    <Measure name="转投奖励金额" column="TRANS_REWARD_AMT" formatString="#,###.00" aggregator="sum" caption="转投奖励金额" visible="true">
+    </Measure>
+    <Measure name="投资笔数" column="F_CUST_ID" datatype="Integer" aggregator="count" caption="投资笔数" visible="true">
+    </Measure>
+    <Measure name="投资人数" column="F_CUST_ID" datatype="Integer" aggregator="distinct count" caption="投资人数" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="赎回主题" visible="true" cache="true" enabled="true">
+    <Table name="FDA_EVT_EXIT_VIEW" schema="IQJ_FDA">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="(必要)统计分区">
+      <Hierarchy name="统计分区" visible="true" hasAll="true">
+        <Table name="FDA_EVT_EXIT_VIEW" schema="IQJ_FDA">
+        </Table>
+        <Level name="分区" visible="true" column="ETL_TX_DT" nameColumn="ETL_TX_DT" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="EXIT_DATE" highCardinality="false" name="1赎回时间">
+      <Hierarchy name="赎回时间层级" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="季度" visible="true" table="DIM_TIME_NEW" column="Q" nameColumn="Q" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="月份" visible="true" table="DIM_TIME_NEW" column="M" nameColumn="M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="赎回日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="赎回时间层级(周)" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="周" visible="true" table="DIM_TIME_NEW" column="W_INT" nameColumn="W" ordinalColumn="W_INT" type="Integer" internalType="int" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="W_NAME">
+        </Level>
+        <Level name="赎回日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="1赎回时段(小时)">
+      <Hierarchy name="赎回时段层级(小时)" visible="true" hasAll="true">
+        <Table name="FDA_EVT_EXIT_VIEW" schema="IQJ_FDA">
+        </Table>
+        <Level name="小时" visible="true" column="EXIT_HOUR" nameColumn="EXIT_HOUR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="EXIT_HOUR">
+        </Level>
+        <Level name="半小时" visible="true" column="EXIT_HOUR_RANGE" nameColumn="EXIT_HOUR_RANGE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="EXIT_HOUR_RANGE">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="PRODUCT_ID" highCardinality="false" name="2理财产品">
+      <Hierarchy name="理财产品" visible="true" hasAll="true" primaryKey="PRODUCT_ID">
+        <Table name="FDA_PRO_PRODUCT_CODE_MAPPING" schema="IQJ_FDA">
+        </Table>
+        <Level name="理财产品" visible="true" table="FDA_PRO_PRODUCT_CODE_MAPPING" column="PRODUCT_ID" nameColumn="PRODUCT_NAME" ordinalColumn="PRODUCT_ID" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="3赎回类型">
+      <Hierarchy name="赎回类型" visible="true" hasAll="true">
+        <Table name="FDA_EVT_EXIT_VIEW" schema="IQJ_FDA">
+        </Table>
+        <Level name="赎回类型" visible="true" column="EXIT_TYPE" nameColumn="EXIT_TYPE_NAME" ordinalColumn="EXIT_TYPE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="EXIT_TYPE_NAME">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="4期限">
+      <Hierarchy name="期限" visible="true" hasAll="true">
+        <Table name="FDA_EVT_EXIT_VIEW" schema="IQJ_FDA">
+        </Table>
+        <Level name="单位" visible="true" column="PERIOD_CD" nameColumn="PERIOD_CD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="期限" visible="true" column="PRODUCT_PERIOD" nameColumn="PRODUCT_PERIOD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUST_ID" highCardinality="false" name="5用户属性">
+      <Hierarchy name="在持标签" visible="true" hasAll="true" allLevelName="All层级-上月底在持标签" primaryKey="CUST_ID">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="一级在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="PARENT_ASSETS_TAG" nameColumn="PARENT_ASSETS_TAG_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PARENT_ASSETS_TAG_NAME">
+        </Level>
+        <Level name="在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="CUST_ASSETS_TAG" nameColumn="CUST_ASSETS_TAG" ordinalColumn="ORDER_TAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="年龄" visible="false" hasAll="true" allLevelName="All层级-年龄" primaryKey="CUST_ID" caption="年龄所有">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="年龄" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="BIRTH_YEAR" nameColumn="AGE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="注册日期" visible="true" hasAll="true" allLevelName="All层级-注册日期" primaryKey="CUST_ID">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="注册年份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_YW" nameColumn="REGIST_YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="注册月份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_M" nameColumn="REGIST_M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="赎回笔数" column="CUST_ID" aggregator="count" visible="true">
+    </Measure>
+    <Measure name="赎回人数" column="CUST_ID" aggregator="distinct count" visible="true">
+    </Measure>
+    <Measure name="赎回金额" column="EXIT_AMT" datatype="Numeric" formatString="#,###.00" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="投资主题(电销专属)" caption="投资主题(电销专属)" visible="true" cache="true" enabled="true">
+    <Table name="TELESALES_EVT_CUST_INVEST_DETAIL" schema="IQJ_DMA_TELESALES">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="(必要)统计分区">
+      <Hierarchy name="统计分区" visible="true" hasAll="true">
+        <Table name="TELESALES_EVT_CUST_INVEST_DETAIL" schema="IQJ_DMA_TELESALES">
+        </Table>
+        <Level name="分区" visible="true" column="ETL_TX_DT" nameColumn="ETL_TX_DT" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="(必要)统计类型">
+      <Hierarchy name="统计类型" visible="true" hasAll="true">
+        <Table name="TELESALES_EVT_CUST_INVEST_DETAIL" schema="IQJ_DMA_TELESALES">
+        </Table>
+        <Level name="统计类型" visible="true" column="STAT_TYPE" nameColumn="STAT_TYPE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="0客服分组">
+      <Hierarchy name="客服分组" visible="true" hasAll="true">
+        <Table name="TELESALES_EVT_CUST_INVEST_DETAIL" schema="IQJ_DMA_TELESALES">
+        </Table>
+        <Level name="组别" visible="true" column="GROUPS" nameColumn="GROUPS" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="GROUPS">
+        </Level>
+        <Level name="主管" visible="true" column="DIRECOTR" nameColumn="DIRECOTR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="DIRECOTR">
+        </Level>
+        <Level name="坐席" visible="true" column="SEAT_NAME" nameColumn="SEAT_NAME" ordinalColumn="SEAT_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="SEAT_NAME">
+        </Level>
+        <Level name="直投金额目标" visible="true" column="INVEST_GOAL" nameColumn="INVEST_GOAL" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="INVEST_GOAL">
+        </Level>
+        <Level name="续投金额目标" visible="true" column="CONTINUE_GOAL" nameColumn="CONTINUE_GOAL" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="CONTINUE_GOAL">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="INVEST_DATE" highCardinality="false" name="1投资(预约)时间">
+      <Hierarchy name="投资时间层级" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="季度" visible="true" table="DIM_TIME_NEW" column="Q" nameColumn="Q" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="月份" visible="true" table="DIM_TIME_NEW" column="M" nameColumn="M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="投资日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="投资时间层级(周)" visible="true" hasAll="true" primaryKey="DATE_ID">
+        <Table name="DIM_TIME_NEW" schema="DATAWINDOW_DW">
+        </Table>
+        <Level name="年" visible="true" table="DIM_TIME_NEW" column="YW" nameColumn="YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="周" visible="true" table="DIM_TIME_NEW" column="W" nameColumn="W" ordinalColumn="W_INT" type="Integer" internalType="int" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="W_NAME">
+        </Level>
+        <Level name="投资日" visible="true" table="DIM_TIME_NEW" column="DATE_ID" nameColumn="DATE_ID" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="PRODUCT_ID" highCardinality="false" name="2理财产品">
+      <Hierarchy name="理财产品" visible="true" hasAll="true" primaryKey="PRODUCT_ID">
+        <Table name="FDA_PRO_PRODUCT_CODE_MAPPING" schema="IQJ_FDA">
+        </Table>
+        <Level name="理财产品" visible="true" table="FDA_PRO_PRODUCT_CODE_MAPPING" column="PRODUCT_ID" nameColumn="PRODUCT_NAME" ordinalColumn="PRODUCT_ID" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="INVEST_TYPE" highCardinality="false" name="3投资类型">
+      <Hierarchy name="投资类型" visible="true" hasAll="true" primaryKey="INVEST_TYPE">
+        <Table name="DIM_IQJ_DW_INVEST_TYPE" schema="KYLIN">
+        </Table>
+        <Level name="投资大类" visible="true" table="DIM_IQJ_DW_INVEST_TYPE" column="PARENT_INVEST_TYPE" nameColumn="PARENT_INVEST_TYPE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="类型" visible="true" table="DIM_IQJ_DW_INVEST_TYPE" column="INVEST_TYPE" nameColumn="INVEST_TYPE_NAME" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="4投资期限">
+      <Hierarchy name="投资期限" visible="true" hasAll="true">
+        <Table name="TELESALES_EVT_CUST_INVEST_DETAIL" schema="IQJ_DMA_TELESALES">
+        </Table>
+        <Level name="单位" visible="true" column="PERIOD_CD" nameColumn="PERIOD_CD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="期限" visible="true" column="PRODUCT_PERIOD" nameColumn="PRODUCT_PERIOD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUST_ID" highCardinality="false" name="5用户属性">
+      <Hierarchy name="在持标签" visible="true" hasAll="true" allLevelName="All层级-上月底在持标签" primaryKey="CUST_ID">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="一级在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="PARENT_ASSETS_TAG" nameColumn="PARENT_ASSETS_TAG_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="PARENT_ASSETS_TAG_NAME">
+        </Level>
+        <Level name="在持标签" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="CUST_ASSETS_TAG" nameColumn="CUST_ASSETS_TAG" ordinalColumn="ORDER_TAG" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="年龄" visible="false" hasAll="true" allLevelName="All层级-年龄" primaryKey="CUST_ID" caption="年龄所有">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="年龄" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="BIRTH_YEAR" nameColumn="AGE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+      <Hierarchy name="注册日期" visible="true" hasAll="true" allLevelName="All层级-注册日期" primaryKey="CUST_ID">
+        <Table name="DIM_IQJ_FDA_USER_INFO" schema="KYLIN">
+        </Table>
+        <Level name="注册年份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_YW" nameColumn="REGIST_YW" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="注册月份" visible="true" table="DIM_IQJ_FDA_USER_INFO" column="REGIST_M" nameColumn="REGIST_M" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="投资金额" column="INVEST_AMT" formatString="#,###.00" aggregator="sum" caption="投资金额" visible="true">
+    </Measure>
+    <Measure name="红包金额" column="REDBAG_AMT" formatString="#,###.00" aggregator="sum" caption="红包金额" visible="true">
+    </Measure>
+    <Measure name="预约奖励金额" column="ORDER_REWARD_AMT" formatString="#,###.00" aggregator="sum" caption="预约奖励金额" visible="true">
+    </Measure>
+    <Measure name="转投奖励金额" column="TRANS_REWARD_AMT" formatString="#,###.00" aggregator="sum" caption="转投奖励金额" visible="true">
+    </Measure>
+    <Measure name="投资笔数" column="CUST_ID" datatype="Integer" aggregator="count" caption="投资笔数" visible="true">
+    </Measure>
+    <Measure name="投资人数" column="CUST_ID" datatype="Integer" aggregator="distinct count" caption="投资人数" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="子账户主题" visible="true" cache="false" enabled="true">
+    <Table name="F_IQJ_SCA_AGT_PLAN_ACCT_INFO_NEW" schema="KYLIN">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="1指标维度">
+      <Hierarchy name="指标维度" visible="true" hasAll="true">
+        <Table name="F_IQJ_SCA_AGT_PLAN_ACCT_INFO_NEW" schema="KYLIN">
+        </Table>
+        <Level name="一级指标" visible="true" column="ACCT_TYPE" nameColumn="ACCT_TYPE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="ACCT_TYPE_NAME">
+        </Level>
+        <Level name="子指标" visible="true" column="SUB_ACCT_TYPE" nameColumn="SUB_ACCT_TYPE_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="SUB_ACCT_TYPE_NAME">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <DimensionUsage source="理财产品" name="2理财产品" visible="true" foreignKey="PRODUCT_ID" highCardinality="false">
+    </DimensionUsage>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="(必要)统计分区">
+      <Hierarchy name="统计分区" visible="true" hasAll="true">
+        <Table name="F_IQJ_SCA_AGT_PLAN_ACCT_INFO_NEW" schema="KYLIN">
+        </Table>
+        <Level name="统计分区" visible="true" column="ETL_TX_DT" nameColumn="ETL_TX_DT" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="ETL_TX_DT">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="3期限">
+      <Hierarchy name="期限" visible="true" hasAll="true">
+        <Table name="F_IQJ_SCA_AGT_PLAN_ACCT_INFO_NEW" schema="KYLIN">
+        </Table>
+        <Level name="单位" visible="true" column="PERIOD_CD" nameColumn="PERIOD_CD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="期限" visible="true" column="PRODUCT_PERIOD" nameColumn="PRODUCT_PERIOD" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <DimensionUsage source="用户属性" name="4用户属性" caption="4用户属性" visible="true" foreignKey="CUST_ID" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="赎回账户数" column="ETL_TX_DT" aggregator="count" visible="true">
+    </Measure>
+    <Measure name="赎回用户数" column="CUST_ID" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="赎回金额(本息)" column="TOTAL_AMOUNT" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="昨日在持资产(本息)" column="CURR_ASSET" aggregator="sum" caption="昨日在持资产" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="用户竞品主题" visible="true" cache="true" enabled="true">
+    <Table name="F_IQJ_SCA_USER_JP" schema="KYLIN">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="竞品1">
+      <Hierarchy name="竞品1" visible="true" hasAll="true">
+        <Table name="F_IQJ_SCA_USER_JP" schema="KYLIN">
+        </Table>
+        <Level name="竞品1" visible="true" column="APP1" nameColumn="APP1" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="APP1">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="竞品2">
+      <Hierarchy name="竞品2" visible="true" hasAll="true">
+        <Table name="F_IQJ_SCA_USER_JP" schema="KYLIN">
+        </Table>
+        <Level name="竞品2" visible="true" column="APP2" nameColumn="APP2" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" captionColumn="APP2">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="用户" column="APP_VALUE1" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Role name="iqj_flw">
+    <SchemaGrant access="custom">
+      <CubeGrant cube="用户主题" access="all">
+      </CubeGrant>
+      <CubeGrant cube="投资主题" access="all">
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  <Role name="olap_player">
+    <SchemaGrant access="none">
+    </SchemaGrant>
+  </Role>
+</Schema>

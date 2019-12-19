@@ -1,0 +1,18 @@
+<ccm>
+    <metric>
+        <complexity>1</complexity>
+        <unit>multiply</unit>
+        <classification>A</classification>
+        <file>all\mymath.py</file>
+        <startLineNumber>9</startLineNumber>
+        <endLineNumber>10</endLineNumber>
+    </metric>
+    <metric>
+        <complexity>1</complexity>
+        <unit>divide</unit>
+        <classification>A</classification>
+        <file>all\mymath.py</file>
+        <startLineNumber>13</startLineNumber>
+        <endLineNumber>14</endLineNumber>
+    </metric>
+</ccm>

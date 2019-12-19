@@ -1,0 +1,350 @@
+{
+    "homes": {
+        "owner": "duming",
+        "type": "SECURED",
+        "roles": null,
+        "users": null
+    },
+    "homes/admin": {
+        "owner": "admin",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/caoyuanqing": {
+        "owner": "caoyuanqing",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/chenchao": {
+        "owner": "chenchao",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/chenchao06": {
+        "owner": "chenchao06",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/dongyaming": {
+        "owner": "dongyaming",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/duming": {
+        "owner": "duming",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/gaoxueyan": {
+        "owner": "gaoxueyan",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/haoyu": {
+        "owner": "haoyu",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/hemin02": {
+        "owner": "hemin02",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/iqj_act": {
+        "owner": "iqj_act",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/iqj_flw": {
+        "owner": "iqj_flw",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/iqj_tel": {
+        "owner": "iqj_tel",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/iqj_user": {
+        "owner": "iqj_user",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/iqj_user0": {
+        "owner": "iqj_user0",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/iqj_user11": {
+        "owner": "iqj_user11",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/iqj_user2": {
+        "owner": "iqj_user2",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/jiangsiyu": {
+        "owner": "jiangsiyu",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/jiayachao": {
+        "owner": "jiayachao",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/jinyuting": {
+        "owner": "jinyuting",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/liangtianfa": {
+        "owner": "liangtianfa",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/liangyue": {
+        "owner": "liangyue",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/lihengqun": {
+        "owner": "lihengqun",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/lijialiang": {
+        "owner": "lijialiang",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/limeixuan": {
+        "owner": "limeixuan",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/limengjiao": {
+        "owner": "limengjiao",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/liming07": {
+        "owner": "liming07",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/linminfan": {
+        "owner": "linminfan",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/linzhanpeng": {
+        "owner": "linzhanpeng",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/liping01": {
+        "owner": "liping01",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/liqi": {
+        "owner": "liqi",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/liudezhong": {
+        "owner": "liudezhong",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/liweixuan": {
+        "owner": "liweixuan",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/luohuixia": {
+        "owner": "luohuixia",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/majunjie01": {
+        "owner": "majunjie01",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/olap_player": {
+        "owner": "olap_player",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/qikai": {
+        "owner": "qikai",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/rendongjin": {
+        "owner": "rendongjin",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/shaokang": {
+        "owner": "shaokang",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/smith": {
+        "owner": "smith",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/songzhimin": {
+        "owner": "songzhimin",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/wangfang": {
+        "owner": "wangfang",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/wanghengming": {
+        "owner": "wanghengming",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/wangli08": {
+        "owner": "wangli08",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/wangpeng02": {
+        "owner": "wangpeng02",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/wangyi08": {
+        "owner": "wangyi08",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/wangyuying": {
+        "owner": "wangyuying",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/weili01": {
+        "owner": "weili01",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/yangyi": {
+        "owner": "yangyi",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/yuliyang": {
+        "owner": "yuliyang",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/zhangming": {
+        "owner": "zhangming",
+        "type": "SECURED",
+        "roles": null,
+        "users": null
+    },
+    "homes/zhangwei09": {
+        "owner": "zhangwei09",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/zhanwei01": {
+        "owner": "zhanwei01",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/zhaohui": {
+        "owner": "zhaohui",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/zhaomingyu": {
+        "owner": "zhaomingyu",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/zhoujianyi": {
+        "owner": "zhoujianyi",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/共享": {
+        "owner": "duming",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    },
+    "homes/测试": {
+        "owner": "zhangwei09",
+        "type": "PRIVATE",
+        "roles": null,
+        "users": null
+    }
+}
